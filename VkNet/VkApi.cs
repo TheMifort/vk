@@ -363,6 +363,18 @@ namespace VkNet
 				Invoke(methodName: methodName, parameters: parameters, skipAuthorization: skipAuthorization));
 		}
 
+		/// <inheritdoc />
+		public VkResponse CallLongPoll(string server, VkParameters parameters)
+		{
+			var answer = InvokeLongPoll(server: server,parameters: parameters);
+
+			var json = JObject.Parse(json: answer);
+
+			var rawResponse = json.Root;
+
+			return new VkResponse(token: rawResponse) { RawJson = answer };
+		}
+
 		/// <inheritdoc cref="IDisposable" />
 		public void Dispose()
 		{
@@ -625,6 +637,74 @@ namespace VkNet
 					return Invoke(methodName: methodName, parameters: parameters, skipAuthorization: skipAuthorization);
 				});
 			}
+
+			return answer;
+		}
+
+		/// <summary>
+		/// Прямой вызов API-метода
+		/// </summary>
+		/// <param name="server"> Сервер, полученный из groups.getLongPollServer. </param>
+		/// <param name="parameters"> Вход. параметры метода. </param>
+		/// <exception cref="ArgumentException"> </exception>
+		/// <returns> Ответ сервера в формате JSON. </returns>
+		private string InvokeLongPoll(string server, VkParameters parameters)
+		{
+			if (string.IsNullOrEmpty(server))
+			{
+				var message = $"Server не должен быть пустым или null";
+				_logger?.LogError(message: message);
+
+				throw new ArgumentException(message: message);
+			}
+
+			_logger?.LogDebug(message:
+				$"Вызов GetLongPollHistory с сервером {server}, с параметрами {string.Join(separator: ",", values: parameters.Select(selector: x => $"{x.Key}={x.Value}"))}");
+
+			var answer = "";
+
+			void SendRequest(IDictionary<string, string> @params)
+			{
+				LastInvokeTime = DateTimeOffset.Now;
+
+				var response = RestClient.PostAsync(uri: new Uri(uriString: server), parameters: @params)
+					.ConfigureAwait(false)
+					.GetAwaiter()
+					.GetResult();
+
+				answer = response.Value ?? response.Message;
+			}
+
+			// Защита от превышения количества запросов в секунду
+			if (RequestsPerSecond > 0 && LastInvokeTime.HasValue)
+			{
+				if (_expireTimer == null)
+				{
+					SetTimer(expireTime: 0);
+				}
+
+				lock (_expireTimerLock)
+				{
+					var span = LastInvokeTimeSpan?.TotalMilliseconds;
+
+					if (span < _minInterval)
+					{
+						var timeout = (int) _minInterval - (int) span;
+					#if NET40
+						Thread.Sleep(millisecondsTimeout: timeout);
+					#else
+						Task.Delay(millisecondsDelay: timeout).Wait();
+#endif
+					}
+
+					SendRequest(@params: parameters);
+				}
+			}
+
+			_logger?.LogTrace(message: $"Uri = \"{server}\"");
+			_logger?.LogTrace(message: $"Json ={Environment.NewLine}{Utilities.PreetyPrintJson(json: answer)}");
+
+			VkErrors.IfErrorThrowException(json: answer);
 
 			return answer;
 		}

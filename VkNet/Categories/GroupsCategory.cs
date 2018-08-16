@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -512,6 +512,12 @@ namespace VkNet.Categories
 		{
 			return _vk.Call<LongPollServerResponse>(methodName: "groups.getLongPollServer"
 					, parameters: new VkParameters { { "group_id", groupId } });
+		}
+
+		/// <inheritdoc />
+		public BotsLongPollHistoryResponse GetBotsLongPollHistory(BotsLongPollHistoryParams @params)
+		{
+			return _vk.CallLongPoll(@params.Server, @params);
 		}
 	}
 }
