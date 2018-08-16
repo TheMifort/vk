@@ -18,7 +18,7 @@ namespace VkNet.Model.GroupUpdate
 		/// </summary>
 		[JsonProperty("type")]
 		[JsonConverter(typeof(StringEnumConverter))]
-		public GroupLongPollUpdateType Type { get; set; }
+		public GroupUpdateType Type { get; set; }
 
 		/// <summary>
 		/// Сообщение для типов событий с сообщением в ответе(MessageNew, MessageEdit, MessageReply)
@@ -164,131 +164,131 @@ namespace VkNet.Model.GroupUpdate
 
 			switch (fromJson.Type)
 			{
-				case GroupLongPollUpdateType.MessageNew:
-				case GroupLongPollUpdateType.MessageEdit:
-				case GroupLongPollUpdateType.MessageReply:
+				case GroupUpdateType.MessageNew:
+				case GroupUpdateType.MessageEdit:
+				case GroupUpdateType.MessageReply:
 					fromJson.Message = resObj;
 					fromJson.UserId = fromJson.Message.FromId;
 
 					break;
-				case GroupLongPollUpdateType.MessageAllow:
+				case GroupUpdateType.MessageAllow:
 					fromJson.MessageAllow = MessageAllow.FromJson(resObj);
 					fromJson.UserId = fromJson.MessageAllow.UserId;
 
 					break;
-				case GroupLongPollUpdateType.MessageDeny:
+				case GroupUpdateType.MessageDeny:
 					fromJson.MessageDeny = MessageDeny.FromJson(resObj);
 					fromJson.UserId = fromJson.MessageDeny.UserId;
 
 					break;
-				case GroupLongPollUpdateType.PhotoNew:
+				case GroupUpdateType.PhotoNew:
 					fromJson.Photo = resObj;
 
 					break;
-				case GroupLongPollUpdateType.PhotoCommentNew:
-				case GroupLongPollUpdateType.PhotoCommentEdit:
-				case GroupLongPollUpdateType.PhotoCommentRestore:
+				case GroupUpdateType.PhotoCommentNew:
+				case GroupUpdateType.PhotoCommentEdit:
+				case GroupUpdateType.PhotoCommentRestore:
 					fromJson.PhotoComment = PhotoComment.FromJson(resObj);
 					fromJson.UserId = fromJson.PhotoComment.FromId;
 
 					break;
-				case GroupLongPollUpdateType.PhotoCommentDelete:
+				case GroupUpdateType.PhotoCommentDelete:
 					fromJson.PhotoCommentDelete = PhotoCommentDelete.FromJson(resObj);
 					fromJson.UserId = fromJson.PhotoCommentDelete.DeleterId;
 
 					break;
-				case GroupLongPollUpdateType.AudioNew:
+				case GroupUpdateType.AudioNew:
 					fromJson.Audio = resObj;
 
 					break;
-				case GroupLongPollUpdateType.VideoNew:
+				case GroupUpdateType.VideoNew:
 					fromJson.Video = resObj;
 
 					break;
-				case GroupLongPollUpdateType.VideoCommentNew:
-				case GroupLongPollUpdateType.VideoCommentEdit:
-				case GroupLongPollUpdateType.VideoCommentRestore:
+				case GroupUpdateType.VideoCommentNew:
+				case GroupUpdateType.VideoCommentEdit:
+				case GroupUpdateType.VideoCommentRestore:
 					fromJson.VideoComment = VideoComment.FromJson(resObj);
 					fromJson.UserId = fromJson.VideoComment.FromId;
 
 					break;
-				case GroupLongPollUpdateType.VideoCommentDelete:
+				case GroupUpdateType.VideoCommentDelete:
 					fromJson.VideoCommentDelete = VideoCommentDelete.FromJson(resObj);
 					fromJson.UserId = fromJson.VideoCommentDelete.DeleterId;
 
 					break;
-				case GroupLongPollUpdateType.WallPostNew:
-				case GroupLongPollUpdateType.WallRepost:
+				case GroupUpdateType.WallPostNew:
+				case GroupUpdateType.WallRepost:
 					fromJson.WallPost = WallPost.FromJson(resObj);
 					fromJson.UserId = fromJson.WallPost.FromId > 0 ? fromJson.WallPost.FromId : null;
 
 					break;
-				case GroupLongPollUpdateType.WallReplyNew:
-				case GroupLongPollUpdateType.WallReplyEdit:
-				case GroupLongPollUpdateType.WallReplyRestore:
+				case GroupUpdateType.WallReplyNew:
+				case GroupUpdateType.WallReplyEdit:
+				case GroupUpdateType.WallReplyRestore:
 					fromJson.WallReply = WallReply.FromJson(resObj);
 					fromJson.UserId = fromJson.WallReply.FromId;
 
 					break;
-				case GroupLongPollUpdateType.WallReplyDelete:
+				case GroupUpdateType.WallReplyDelete:
 					fromJson.WallReplyDelete = WallReplyDelete.FromJson(resObj);
 					fromJson.UserId = fromJson.WallReplyDelete.DeleterId;
 
 					break;
-				case GroupLongPollUpdateType.BoardPostNew:
-				case GroupLongPollUpdateType.BoardPostEdit:
-				case GroupLongPollUpdateType.BoardPostRestore:
+				case GroupUpdateType.BoardPostNew:
+				case GroupUpdateType.BoardPostEdit:
+				case GroupUpdateType.BoardPostRestore:
 					fromJson.BoardPost = BoardPost.FromJson(resObj);
 					fromJson.UserId = fromJson.BoardPost.FromId > 0 ? fromJson.BoardPost.FromId : (long?) null;
 
 					break;
-				case GroupLongPollUpdateType.BoardPostDelete:
+				case GroupUpdateType.BoardPostDelete:
 					fromJson.BoardPostDelete = BoardPostDelete.FromJson(resObj);
 
 					break;
-				case GroupLongPollUpdateType.MarketCommentNew:
-				case GroupLongPollUpdateType.MarketCommentEdit:
-				case GroupLongPollUpdateType.MarketCommentRestore:
+				case GroupUpdateType.MarketCommentNew:
+				case GroupUpdateType.MarketCommentEdit:
+				case GroupUpdateType.MarketCommentRestore:
 					fromJson.MarketComment = MarketComment.FromJson(resObj);
 					fromJson.UserId = fromJson.MarketComment.FromId;
 
 					break;
-				case GroupLongPollUpdateType.MarketCommentDelete:
+				case GroupUpdateType.MarketCommentDelete:
 					fromJson.MarketCommentDelete = MarketCommentDelete.FromJson(resObj);
 					fromJson.UserId = fromJson.MarketCommentDelete.DeleterId;
 
 					break;
-				case GroupLongPollUpdateType.GroupLeave:
+				case GroupUpdateType.GroupLeave:
 					fromJson.GroupLeave = GroupLeave.FromJson(resObj);
 					fromJson.UserId = fromJson.GroupLeave.IsSelf == true ? fromJson.GroupLeave.UserId : null;
 
 					break;
-				case GroupLongPollUpdateType.GroupJoin:
+				case GroupUpdateType.GroupJoin:
 					fromJson.GroupJoin = GroupJoin.FromJson(resObj);
 					fromJson.UserId = fromJson.GroupJoin.UserId;
 
 					break;
-				case GroupLongPollUpdateType.UserBlock:
+				case GroupUpdateType.UserBlock:
 					fromJson.UserBlock = UserBlock.FromJson(resObj);
 					fromJson.UserId = fromJson.UserBlock.AdminId;
 
 					break;
-				case GroupLongPollUpdateType.UserUnblock:
+				case GroupUpdateType.UserUnblock:
 					fromJson.UserUnblock = UserUnblock.FromJson(resObj);
 					fromJson.UserId = fromJson.UserUnblock.ByEndDate == true ? null : fromJson.UserUnblock.AdminId;
 
 					break;
-				case GroupLongPollUpdateType.PollVoteNew:
+				case GroupUpdateType.PollVoteNew:
 					fromJson.PollVoteNew = PollVoteNew.FromJson(resObj);
 					fromJson.UserId = fromJson.PollVoteNew.UserId;
 
 					break;
-				case GroupLongPollUpdateType.GroupChangePhoto:
+				case GroupUpdateType.GroupChangePhoto:
 					fromJson.GroupChangePhoto = GroupChangePhoto.FromJson(resObj);
 					fromJson.UserId = fromJson.GroupChangePhoto.UserId;
 
 					break;
-				case GroupLongPollUpdateType.GroupOfficersEdit:
+				case GroupUpdateType.GroupOfficersEdit:
 					fromJson.GroupOfficersEdit = GroupOfficersEdit.FromJson(resObj);
 					fromJson.UserId = fromJson.GroupOfficersEdit.AdminId;
 

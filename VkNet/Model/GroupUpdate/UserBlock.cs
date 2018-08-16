@@ -28,7 +28,6 @@ namespace VkNet.Model.GroupUpdate
 		/// Дата разблокировки
 		/// </summary>
 		[JsonConverter(typeof(UnixDateTimeConverter))]
-		[JsonProperty("unblock_date")]
 		public DateTime? UnblockDate { get; set; }
 
 		/// <summary>
@@ -49,7 +48,10 @@ namespace VkNet.Model.GroupUpdate
 		/// <param name="response"> Ответ сервера. </param>
 		public static UserBlock FromJson(VkResponse response)
 		{
-			return JsonConvert.DeserializeObject<UserBlock>(response.ToString());
+			var userBlock = JsonConvert.DeserializeObject<UserBlock>(response.ToString());
+
+			userBlock.UnblockDate = response["unblock_date"];
+			return userBlock;
 		}
 	}
 }

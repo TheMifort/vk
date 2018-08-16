@@ -5,7 +5,7 @@ namespace VkNet.Enums
 	/// <summary>
 	/// Тип обновления
 	/// </summary>
-	public enum GroupLongPollUpdateType
+	public enum GroupUpdateType
 	{
 		/// <summary>
 		/// Не поддерживается
