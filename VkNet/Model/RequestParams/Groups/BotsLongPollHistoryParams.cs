@@ -7,7 +7,7 @@ namespace VkNet.Model.RequestParams
 	/// Параметры BotsLongPoll API
 	/// </summary>
 	[Serializable]
-	public class GetBotsLongPollHistoryParams
+	public class BotsLongPollHistoryParams
 	{
 		/// <summary>
 		/// Сервер для подключения Long Poll группы
@@ -34,7 +34,7 @@ namespace VkNet.Model.RequestParams
 		/// </summary>
 		/// <param name="p"> Параметры. </param>
 		/// <returns> </returns>
-		public static VkParameters ToVkParameters(GetBotsLongPollHistoryParams p)
+		public static VkParameters ToVkParameters(BotsLongPollHistoryParams p)
 		{
 			var parameters = new VkParameters
 			{
