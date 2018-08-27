@@ -366,13 +366,19 @@ namespace VkNet
 		/// <inheritdoc />
 		public VkResponse CallLongPoll(string server, VkParameters parameters)
 		{
-			var answer = InvokeLongPoll(server: server,parameters: parameters);
+			var answer = InvokeLongPoll(server: server, parameters: parameters);
 
 			var json = JObject.Parse(json: answer);
 
 			var rawResponse = json.Root;
 
 			return new VkResponse(token: rawResponse) { RawJson = answer };
+		}
+
+		/// <inheritdoc />
+		public Task<VkResponse> CallLongPollAsync(string server, VkParameters parameters)
+		{
+			return TypeHelper.TryInvokeMethodAsync(func: () => CallLongPoll(server, parameters));
 		}
 
 		/// <inheritdoc cref="IDisposable" />
@@ -428,10 +434,10 @@ namespace VkNet
 		/// </summary>
 		private float _minInterval;
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IVkApiInvoke" />
 		public DateTimeOffset? LastInvokeTime { get; private set; }
 
-		/// <inheritdoc />
+		/// <inheritdoc cref="IVkApiInvoke" />
 		public TimeSpan? LastInvokeTimeSpan
 		{
 			get
@@ -641,14 +647,8 @@ namespace VkNet
 			return answer;
 		}
 
-		/// <summary>
-		/// Прямой вызов API-метода
-		/// </summary>
-		/// <param name="server"> Сервер, полученный из groups.getLongPollServer. </param>
-		/// <param name="parameters"> Вход. параметры метода. </param>
-		/// <exception cref="ArgumentException"> </exception>
-		/// <returns> Ответ сервера в формате JSON. </returns>
-		private string InvokeLongPoll(string server, VkParameters parameters)
+		/// <inheritdoc />
+		public string InvokeLongPoll(string server, Dictionary<string, string> parameters)
 		{
 			if (string.IsNullOrEmpty(server))
 			{
@@ -707,6 +707,12 @@ namespace VkNet
 			VkErrors.IfErrorThrowException(json: answer);
 
 			return answer;
+		}
+
+		/// <inheritdoc />
+		public Task<string> InvokeLongPollAsync(string server, Dictionary<string, string> parameters)
+		{
+			return TypeHelper.TryInvokeMethodAsync(func: () => InvokeLongPoll(server, parameters));
 		}
 
 		/// <summary>

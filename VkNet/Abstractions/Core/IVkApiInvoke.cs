@@ -83,13 +83,5 @@ namespace VkNet.Abstractions
 		/// </param>
 		/// <returns> Ответ сервера в формате JSON. </returns>
 		Task<string> InvokeAsync(string methodName, IDictionary<string, string> parameters, bool skipAuthorization = false);
-
-		/// <summary>
-		/// Вызвать ожидание событий LongPoll API.
-		/// </summary>
-		/// <param name="server"> Сервер. </param>
-		/// <param name="parameters"> Параметры. </param>
-		/// <returns> </returns>
-		VkResponse CallLongPoll(string server, VkParameters parameters);
 	}
 }

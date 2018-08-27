@@ -17,12 +17,12 @@ namespace VkNet.Categories
 	/// </summary>
 	public partial class GroupsCategory : IGroupsCategory
 	{
-		private readonly IVkApiInvoke _vk;
+		private readonly IVkInvoke _vk;
 
 		/// <summary>
 		/// </summary>
 		/// <param name="vk"> </param>
-		public GroupsCategory(IVkApiInvoke vk)
+		public GroupsCategory(IVkInvoke vk)
 		{
 			_vk = vk;
 		}
