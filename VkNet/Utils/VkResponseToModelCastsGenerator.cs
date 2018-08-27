@@ -762,18 +762,6 @@ namespace VkNet.Utils
 		/// <returns>
 		/// Результат преобразования.
 		/// </returns>
-		public static implicit operator BotsLongPollHistoryResponse(VkResponse response)
-		{
-			return response?._token == null || !response._token.HasValues ? null : BotsLongPollHistoryResponse.FromJson(response: response);
-		}
-
-		/// <summary>
-		/// Преобразовать из VkResponse
-		/// </summary>
-		/// <param name="response"> Ответ. </param>
-		/// <returns>
-		/// Результат преобразования.
-		/// </returns>
 		public static implicit operator History(VkResponse response)
 		{
 			return response?._token == null || !response._token.HasValues ? null : History.FromJson(response: response);

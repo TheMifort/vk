@@ -38,13 +38,25 @@ namespace VkNet.Model.RequestParams
 		{
 			var parameters = new VkParameters
 			{
-				{ "ts", p.Ts }
-				, { "key", p.Key }
-				, { "wait", p.Wait }
-				,{"act","a_check"}
+				{ "ts", p.Ts },
+				{ "key", p.Key },
+				{ "wait", p.Wait },
+				{ "act", "a_check" }
 			};
 
 			return parameters;
+		}
+
+		/// <summary>
+		/// Преобразование класса <see cref="BotsLongPollHistoryParams" /> в VkParameters
+		/// </summary>
+		/// <param name="p"> Параметр. </param>
+		/// <returns>
+		/// Результат преобразования.
+		/// </returns>
+		public static implicit operator VkParameters(BotsLongPollHistoryParams p)
+		{
+			return ToVkParameters(p: p);
 		}
 	}
 }

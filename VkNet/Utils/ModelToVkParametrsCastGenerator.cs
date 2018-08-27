@@ -473,18 +473,6 @@ namespace VkNet.Utils
 		}
 
 		/// <summary>
-		/// Преобразование класса <see cref="BotsLongPollHistoryParams" /> в VkParameters
-		/// </summary>
-		/// <param name="p"> Параметр. </param>
-		/// <returns>
-		/// Результат преобразования.
-		/// </returns>
-		public static implicit operator VkParameters(BotsLongPollHistoryParams p)
-		{
-			return BotsLongPollHistoryParams.ToVkParameters(p: p);
-		}
-
-		/// <summary>
 		/// Преобразование класса <see cref="LikesAddParams" /> в VkParameters
 		/// </summary>
 		/// <param name="p"> Параметр. </param>
