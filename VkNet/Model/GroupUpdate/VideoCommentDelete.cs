@@ -45,8 +45,8 @@ namespace VkNet.Model.GroupUpdate
 				Id = response["id"],
 				VideoId = response["video_id"],
 				OwnerId = response["owner_id"],
-				UserId =  response["user_id"],
-				DeleterId =  response["deleter_id"]
+				UserId = response["user_id"],
+				DeleterId = response["deleter_id"]
 			};
 		}
 	}

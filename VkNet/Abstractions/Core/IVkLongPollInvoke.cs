@@ -11,16 +11,6 @@ namespace VkNet.Abstractions
 	public interface IVkLongPollInvoke
 	{
 		/// <summary>
-		/// Время вызова последнего метода этим объектом
-		/// </summary>
-		DateTimeOffset? LastInvokeTime { get; }
-
-		/// <summary>
-		/// Время, прошедшее с момента последнего обращения к API этим объектом
-		/// </summary>
-		TimeSpan? LastInvokeTimeSpan { get; }
-
-		/// <summary>
 		/// Вызвать ожидание событий LongPoll API.
 		/// </summary>
 		/// <param name="server"> Сервер. </param>
@@ -39,7 +29,7 @@ namespace VkNet.Abstractions
 		/// <summary>
 		/// Прямой вызов LongPoll API
 		/// </summary>
-		/// <param name="server"> Сервер, полученный из groups.getLongPollServer. </param>
+		/// <param name="server"> Сервер </param>
 		/// <param name="parameters"> Вход. параметры LongPoll. </param>
 		/// <exception cref="ArgumentException"> </exception>
 		/// <returns> Ответ сервера в формате JSON. </returns>
@@ -48,7 +38,7 @@ namespace VkNet.Abstractions
 		/// <summary>
 		/// Прямой вызов LongPoll API в асинхронном режиме
 		/// </summary>
-		/// <param name="server"> Сервер, полученный из groups.getLongPollServer. </param>
+		/// <param name="server"> Сервер </param>
 		/// <param name="parameters"> Вход. параметры LongPoll. </param>
 		/// <exception cref="ArgumentException"> </exception>
 		/// <returns> Ответ сервера в формате JSON. </returns>

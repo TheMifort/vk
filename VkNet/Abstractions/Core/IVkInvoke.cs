@@ -3,8 +3,7 @@ namespace VkNet.Abstractions
 	/// <summary>
 	/// Вызовы API
 	/// </summary>
-	public interface IVkInvoke : IVkApiInvoke,IVkLongPollInvoke
+	public interface IVkInvoke : IVkApiInvoke, IVkLongPollInvoke
 	{
-		
 	}
 }

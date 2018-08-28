@@ -20,7 +20,7 @@ namespace VkNet.Model.GroupUpdate
 		/// <param name="response"> Ответ сервера. </param>
 		public static MessageDeny FromJson(VkResponse response)
 		{
-			return new MessageDeny {UserId = response["user_id"]};
+			return new MessageDeny { UserId = response["user_id"] };
 		}
 	}
 }

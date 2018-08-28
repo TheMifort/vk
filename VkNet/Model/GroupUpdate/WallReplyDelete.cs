@@ -9,7 +9,6 @@ namespace VkNet.Model.GroupUpdate
 	[Serializable]
 	public class WallReplyDelete
 	{
-
 		/// <summary>
 		/// Идентификатор комментария
 		/// </summary>
